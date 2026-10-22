@@ -1,0 +1,63 @@
+{
+  "manifest_version": 3,
+  "name": "OneDrive & SharePoint PDF Downloader",
+  "version": "1.0.0",
+  "description": "Tự động trích xuất và tải xuống tài liệu PDF từ SharePoint / OneDrive bị chặn download.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "Tải PDF từ SharePoint / OneDrive"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*.sharepoint.com/*",
+    "*://*.onedrive.live.com/*",
+    "*://*.office.com/*",
+    "*://*.officeapps.live.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.sharepoint.com/*",
+        "*://*.onedrive.live.com/*",
+        "*://*.office.com/*",
+        "*://*.officeapps.live.com/*"
+      ],
+      "js": [
+        "libs/jspdf.umd.min.js",
+        "content_scripts/content.js"
+      ],
+      "css": [
+        "content_scripts/content.css"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "libs/jspdf.umd.min.js",
+        "icons/*"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

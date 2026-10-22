@@ -1,0 +1,243 @@
+/**
+ * OneDrive & SharePoint PDF Downloader - Content Injected Styles
+ * Scoped dưới namespace #sp-downloader-* để không bị xung đột CSS của SharePoint
+ */
+
+#sp-downloader-widget {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  user-select: none;
+}
+
+.sp-downloader-fab {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 50px;
+  box-shadow: 0 8px 24px rgba(0, 120, 212, 0.4), 0 2px 6px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sp-downloader-fab:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(0, 120, 212, 0.5), 0 4px 10px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, #1084d9 0%, #0067b8 100%);
+}
+
+.sp-downloader-fab:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.sp-downloader-fab-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-downloader-fab-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* Modal / Card Tiến Trình */
+#sp-downloader-card {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  z-index: 9999999;
+  width: 320px;
+  background: rgba(28, 33, 40, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: #f0f6fc;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  padding: 18px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  display: none;
+  animation: spFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes spFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.sp-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sp-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #58a6ff;
+}
+
+.sp-card-close {
+  background: none;
+  border: none;
+  color: #8b949e;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sp-card-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f0f6fc;
+}
+
+.sp-card-docname {
+  font-size: 12px;
+  color: #8b949e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 12px;
+}
+
+/* Progress bar */
+.sp-progress-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.sp-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #1f6feb 0%, #2ea043 100%);
+  border-radius: 4px;
+  transition: width 0.2s ease;
+}
+
+.sp-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #c9d1d9;
+  margin-bottom: 14px;
+}
+
+.sp-status-text {
+  font-size: 12px;
+  color: #8b949e;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  min-height: 32px;
+}
+
+/* Nút bấm hành động trong Card */
+.sp-card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.sp-btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.sp-btn-primary:hover {
+  background: linear-gradient(135deg, #2ea043 0%, #3fb950 100%);
+  box-shadow: 0 4px 12px rgba(46, 160, 67, 0.4);
+}
+
+.sp-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.sp-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #c9d1d9;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sp-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f0f6fc;
+}
+
+/* Toast Thông báo */
+.sp-toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 10000000;
+  background: #1c2128;
+  color: #58a6ff;
+  border: 1px solid rgba(88, 166, 255, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: spSlideDown 0.3s ease-out;
+}
+
+@keyframes spSlideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SharePoint PDF Downloader</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-brand">
+        <div class="header-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        </div>
+        <div class="header-titles">
+          <h1 class="header-title">SharePoint Downloader</h1>
+          <span class="header-subtitle">Restricted View PDF Extractor</span>
+        </div>
+      </div>
+      <div class="header-badge" id="env-badge">Active</div>
+    </header>
+
+    <!-- Document Info Card -->
+    <section class="card doc-card">
+      <div class="doc-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+      </div>
+      <div class="doc-details">
+        <div class="doc-label">Tài liệu phát hiện</div>
+        <div class="doc-name" id="doc-title" title="Đang quét trang...">Đang quét trang...</div>
+        <div class="doc-meta">
+          <span class="meta-tag" id="doc-pages">Ước tính: Đang tính...</span>
+          <span class="meta-tag meta-tag-blue" id="doc-type">PDF Document</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings Card -->
+    <section class="card settings-card">
+      <!-- Số trang tải -->
+      <div class="setting-row">
+        <div class="setting-label">
+          <span>Số trang quét & tải</span>
+          <span class="setting-hint">Tự động hoặc tùy chỉnh số trang</span>
+        </div>
+        <div class="page-range-inputs">
+          <span class="range-label">Từ</span>
+          <input type="number" id="page-start" class="num-input" value="1" min="1" title="Trang bắt đầu">
+          <span class="range-label">đến</span>
+          <input type="number" id="page-end" class="num-input" value="1" min="1" title="Trang kết thúc">
+        </div>
+      </div>
+
+      <!-- Tự động cuộn đến hết -->
+      <div class="setting-row">
+        <label for="auto-scroll" class="setting-label">
+          <span>Quét cuộn liên tục đến hết file</span>
+          <span class="setting-hint">Tự phát hiện khi chạm trang cuối</span>
+        </label>
+        <input type="checkbox" id="auto-scroll" class="checkbox-input" checked>
+      </div>
+
+      <!-- Thời gian chờ -->
+      <div class="setting-row">
+        <label for="page-delay" class="setting-label">
+          <span>Thời gian chờ mỗi trang</span>
+          <span class="setting-hint">Đảm bảo trang render xong</span>
+        </label>
+        <select id="page-delay" class="select-input">
+          <option value="1000">1.0 giây (Nhanh)</option>
+          <option value="1500">1.5 giây (Chuẩn)</option>
+          <option value="2000" selected>2.0 giây (An toàn)</option>
+          <option value="3000">3.0 giây (Máy yếu)</option>
+        </select>
+      </div>
+
+      <!-- Chất lượng -->
+      <div class="setting-row">
+        <label for="img-quality" class="setting-label">
+          <span>Chất lượng hình ảnh</span>
+          <span class="setting-hint">Độ sắc nét & dung lượng</span>
+        </label>
+        <select id="img-quality" class="select-input">
+          <option value="jpeg-high" selected>Chất lượng cao (JPEG 95%)</option>
+          <option value="png-max">Nguyên bản tối đa (PNG)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Progress Card (Hidden by default) -->
+    <section class="card progress-card" id="progress-section" style="display: none;">
+      <div class="progress-header">
+        <span class="progress-title" id="progress-status">Đang chuẩn bị...</span>
+        <span class="progress-percent" id="progress-percent">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-footer">
+        <span class="progress-counter" id="progress-counter">0 / 0 trang</span>
+        <span class="progress-speed" id="progress-time">Đang xử lý</span>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn btn-primary" id="btn-start">
+        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        <span>Bắt đầu tải PDF ngay</span>
+      </button>
+      <button class="btn btn-danger" id="btn-cancel" style="display: none;">
+        <span>Dừng lại</span>
+      </button>
+    </div>
+
+    <!-- Status Message / Alert -->
+    <div class="status-box" id="status-box">
+      <span class="status-icon">💡</span>
+      <span class="status-text" id="status-text">Tool sẽ tự động cuộn từ trang 1 đến trang cuối và đóng gói PDF.</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <span>Tự động cuộn & trích xuất canvas chất lượng cao</span>
+      <a href="#" id="link-help">Hướng dẫn</a>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
